@@ -50,46 +50,22 @@ const getMenuClassEventName = function (el) {
 	return false;
 }
 
-const sendGA(hitType, eventCategory, eventAction, eventLabel){
+const sendGA = function (hitType, eventCategory, eventAction, eventLabel){
 	ga('send', {hitType, eventCategory, eventAction, eventLabel});
 }
 
 const actMenuEvent = {
 	contato: () => {
-		const evGA = {
-			hitType: 'event',
-			eventCategory: 'menu',
-			eventAction: 'entre_em_contato',
-			eventLabel: 'link_externo'
-		};
-		ga('send', evGA);
+		sendGA('event', 'menu', 'entre_em_contato', 'link_externo');
 	},
 	download: () => {
-		const evGA = {
-			hitType: 'event',
-			eventCategory: 'menu',
-			eventAction: 'download_pdf',
-			eventLabel: 'download_pdf'
-		};
-		ga('send', evGA);
+		sendGA('event', 'menu', 'download_pdf', 'download_pdf');
 	},
 	inicio: () => {
-		const evGA = {
-			hitType: 'event',
-			eventCategory: 'menu',
-			eventAction: 'menu',
-			eventLabel: 'inicio'
-		};
-		// ga('send', evGA);
+		//sendGA('event', 'menu', 'menu', 'inicio');
 	},
 	home: () => {
-		const evGA = {
-			hitType: 'event',
-			eventCategory: 'menu',
-			eventAction: 'menu',
-			eventLabel: 'home'
-		};
-		// ga('send', evGA);
+		//sendGA('event', 'menu', 'menu', 'home');
 	}
 }
 
