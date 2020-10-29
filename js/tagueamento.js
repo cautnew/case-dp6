@@ -10,6 +10,8 @@
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+ga('create', 'UA-12345-6', 'auto');
+
 const __ = function (selector) {
 	return document.querySelectorAll(selector);
 }
@@ -51,7 +53,8 @@ const getMenuClassEventName = function (el) {
 }
 
 const sendGA = function (hitType, eventCategory, eventAction, eventLabel){
-	ga('send', {hitType, eventCategory, eventAction, eventLabel});
+	const gaOBJ = {hitType, eventCategory, eventAction, eventLabel};
+	ga('send', gaOBJ);
 }
 
 const sendEventGA = function (eventCategory, eventAction, eventLabel) {
@@ -103,13 +106,12 @@ const clickLinkMenu = function (ev) {
 	sendEventGA(eventCategory, eventAction, eventLabel);
 }
 
-ga('create', 'UA-12345-6', 'auto');
-ga('send', 'pageview', location.pathname);
-
 window.addEventListener('load', function () {
 	const linksMenu = __('nav.menu a');
 
 	linksMenu.forEach(function (el) {
 		el.addEventListener('click', clickLinkMenu);
 	});
+
+	ga('send', 'pageview', location.pathname);
 });
