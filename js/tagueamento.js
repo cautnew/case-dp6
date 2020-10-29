@@ -12,6 +12,15 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', 'UA-12345-6', 'auto');
 
+const sendGA = function (hitType, eventCategory, eventAction, eventLabel){
+	const gaOBJ = {hitType, eventCategory, eventAction, eventLabel};
+	ga('send', gaOBJ);
+}
+
+const sendEventGA = function (eventCategory, eventAction, eventLabel) {
+	sendGA('event', eventCategory, eventAction, eventLabel);
+}
+
 const __ = function (selector) {
 	return document.querySelectorAll(selector);
 }
@@ -52,16 +61,7 @@ const getMenuClassEventName = function (el) {
 	return false;
 }
 
-const sendGA = function (hitType, eventCategory, eventAction, eventLabel){
-	const gaOBJ = {hitType, eventCategory, eventAction, eventLabel};
-	ga('send', gaOBJ);
-}
-
-const sendEventGA = function (eventCategory, eventAction, eventLabel) {
-	sendGA('event', eventCategory, eventAction, eventLabel);
-}
-
-const actMenuEvent = {
+const actMenuClassEvent = {
 	contato: () => {
 		sendEventGA('menu', 'entre_em_contato', 'link_externo');
 	},
@@ -79,10 +79,10 @@ const actMenuEvent = {
 const clickLinkMenu = function (ev) {
 	const el = ev.target.closest('a');
 
-	const classEventName = getMenuClassEventName(el);
+	const menuClassEventName = getMenuClassEventName(el);
 
-	if (classEventName) {
-		actMenuEvent[classEventName]();
+	if (menuClassEventName) {
+		actMenuClassEvent[menuClassEventName]();
 		return;
 	}
 
@@ -107,11 +107,11 @@ const clickLinkMenu = function (ev) {
 }
 
 window.addEventListener('load', function () {
+	ga('send', 'pageview', location.pathname);
+
 	const linksMenu = __('nav.menu a');
 
 	linksMenu.forEach(function (el) {
 		el.addEventListener('click', clickLinkMenu);
 	});
-
-	ga('send', 'pageview', location.pathname);
 });
