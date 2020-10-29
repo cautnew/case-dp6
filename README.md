@@ -2,9 +2,11 @@
 Aqui é possível verificar o código colocado para o fornecimento de informações para o *Google Analytics*.
 
 Nas páginas "sobre.html" e "analise.html" os códigos javascript correspondentes a cada uma delas foi colocado na tag <code>script</code> no final da tag <code>body</code>.
-A finalidade é manter o código mais limpo e organizado.
+A finalidade foi manter o código mais limpo e organizado.
 
-Seguem as etapas:
+Confira aqui o [demo no GitHub Pages](https://cautnew.github.io/case-dp6/).
+
+Seguem as implementações a serem feitas:
 
 ## 1. Todas as páginas
   - [x] No menu, há um link que direciona o usuário para a página de contato da DP6. Configure um evento como o seguinte:<br>
