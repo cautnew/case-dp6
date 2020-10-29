@@ -93,7 +93,7 @@
       const el = ev.target.closest('.card-montadoras');
       const dataName = el.getAttribute('data-name');
 
-      sendGA('event', 'analise', 'ver_mais', dataName);
+      sendEventGA('analise', 'ver_mais', dataName);
     };
 
     window.addEventListener('load', () => {

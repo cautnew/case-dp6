@@ -91,7 +91,7 @@
       const lbTitle = __('.lightbox-title')[0];
       const observerLbTitle = new MutationObserver(function () {
         if(lbTitle.innerHTML == 'Contato enviado') {
-          sendGA('event', 'contato', 'enviado', 'enviado');
+          sendEventGA('contato', 'enviado', 'enviado');
         }
         observerLbTitle.disconnect();
       });
@@ -102,7 +102,7 @@
       const input = ev.target;
       const id = input.id;
 
-      sendGA('event', 'contato', id, 'preencheu');
+      sendEventGA('contato', id, 'preencheu');
     };
 
     window.addEventListener('load', () => {

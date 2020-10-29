@@ -54,50 +54,53 @@ const sendGA = function (hitType, eventCategory, eventAction, eventLabel){
 	ga('send', {hitType, eventCategory, eventAction, eventLabel});
 }
 
+const sendEventGA = function (eventCategory, eventAction, eventLabel) {
+	sendGA('event', eventCategory, eventAction, eventLabel);
+}
+
 const actMenuEvent = {
 	contato: () => {
-		sendGA('event', 'menu', 'entre_em_contato', 'link_externo');
+		sendEventGA('menu', 'entre_em_contato', 'link_externo');
 	},
 	download: () => {
-		sendGA('event', 'menu', 'download_pdf', 'download_pdf');
+		sendEventGA('menu', 'download_pdf', 'download_pdf');
 	},
 	inicio: () => {
-		//sendGA('event', 'menu', 'menu', 'inicio');
+		sendEventGA('menu', 'menu', 'inicio');
 	},
 	home: () => {
-		//sendGA('event', 'menu', 'menu', 'home');
+		sendEventGA('menu', 'menu', 'home');
 	}
 }
 
 const clickLinkMenu = function (ev) {
 	const el = ev.target.closest('a');
 
-	const eventName = getMenuClassEventName(el);
+	const classEventName = getMenuClassEventName(el);
 
-	if (eventName) {
-		actMenuEvent[eventName]();
+	if (classEventName) {
+		actMenuEvent[classEventName]();
 		return;
 	}
 
 	const link = el.getAttribute('href');
 	const param = getParameterLink(link);
-	const evGA = {
-		hitType: 'event',
-		eventCategory: 'menu'
-	};
+	let eventCategory = 'menu';
+	let eventAction;
+	let eventLabel;
 	
 	if (param !== null) {
-		evGA.eventAction = 'submenu';
-		evGA.eventLabel = `${link} | ${el.innerHTML}`;
+		eventAction = 'submenu';
+		eventLabel = `${link} | ${el.innerHTML}`;
 	} else if(isLinkExterno(link)) {
-		evGA.eventAction = link;
-		evGA.eventLabel = 'link_externo';
+		eventAction = link;
+		eventLabel = 'link_externo';
 	} else {
-		evGA.eventAction = 'menu';
-		evGA.eventLabel = `${link} | ${el.innerHTML}`;
+		eventAction = 'menu';
+		eventLabel = `${link} | ${el.innerHTML}`;
 	}
 
-	// ga('send', evGA);
+	sendEventGA(eventCategory, eventAction, eventLabel);
 }
 
 ga('create', 'UA-12345-6', 'auto');
